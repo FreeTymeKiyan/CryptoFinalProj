@@ -1,5 +1,6 @@
 def main():
-	msg = 'Victory is mine'
+	#msg = 'Victory is mine'
+	msg = 'Math 310 Proves!'
 	print 'input msg:', msg
 	enciphered = rc4(msg)
 	print 'enciphered:', enciphered
@@ -18,12 +19,18 @@ def rc4(msg):
 		j = (j + s[i]) % 256
 		s[i], s[j] = s[j], s[i]
 		a = ord(msg[k]) ^ s[(s[i] + s[j]) % 256]
-		l = chr(a)
+		#l = chr(a)
+		l = str(hex(a))
 		enciphered += l
 	return enciphered
 
 def initS(s):
-	key = [1, 7, 1, 7] 
+	#key = [1, 7, 1, 7] 
+	keyMsg = "pwd12"
+	key = []
+	for word in keyMsg:
+		key.append('{:08b}'.format(ord(word)))
+	print key
 	for i in range(256):
 		s.append(i)
 	j = 0
