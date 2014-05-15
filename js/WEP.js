@@ -73,12 +73,13 @@ WEP.prototype.constructCipherTx = function(str){
 	var result = "";
 	var m = 0, n = 0;
 	for (var i = 0; i < str.length/8; i++) {
-		var msg = "0x"+parseInt(str.substr(i, i+8),2).toString(16);
+		var msg = "0x"+parseInt(str.substring(i, i+8),2).toString(16);
 		m = (m+1)%256;
 		n = (n+s[m])%256;
 		var tmp = s[m];
 		s[m] = s[n];
 		s[n] =tmp;
+		console.log(msg);
 		var singleChar = formatBinary(8,(("0x"+s[(s[m]+s[n])%256].toString(16)) ^ msg).toString(2));
 		result+=singleChar;
 	};
@@ -92,9 +93,8 @@ WEP.prototype.encryption = function(){
 	var keyStream = this.rc4(iv[0]);
 	var checkSum = formatBinary(32,this.crc32().toString(2));
 	var checkedMsg = this.constructMsgBin() + checkSum;
-	var cipher = this.constructCipherTx(checkedMsg) ;
+	var cipher = iv[1]+this.constructCipherTx(checkedMsg);
 	console.log(cipher.length);
-
 }
 
 
