@@ -1,0 +1,12 @@
+extend layout
+block content
+	div.well.container(style = "margin-top: 30px").btn-container
+		form(method="post")
+			div.input-group.col-md-6.setup-input
+				span.input-group-addon Auth Key
+				input.form-control(name = "key", placeholder = "Auth Key")
+			div.input-group.col-md-6.setup-input
+				span.input-group-addon Password
+				input.form-control(name = "passowrd", placeholder = "Password")
+			div.btn-container
+				input(type = "submit").btn.btn-primary.btn-dfs

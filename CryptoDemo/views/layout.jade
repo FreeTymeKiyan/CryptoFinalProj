@@ -1,0 +1,25 @@
+doctype html
+html
+	head
+		title #{title} | DFS
+		link(rel = 'stylesheet', href = '/stylesheets/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		block pageStyleSheet
+
+		script(src = '/javascripts/jquery.min.js')
+		script(src = '/javascripts/bootstrap.min.js')
+		block pageScript
+	body
+		div.navbar.navbar-fixed-top.navbar-dfs(role = "banner")
+			div.container
+				div.navbar-header
+					a.navbar-brand(href="/")
+						b Project Demo
+					a.navbar-toggle(data-toggle="collapse", datatarget=".navbar-collapse")
+						span.glyphicon.glyphicon-chevron-down
+
+				div.navbar-collapse.collapse
+
+		div.container#container
+			block content
+

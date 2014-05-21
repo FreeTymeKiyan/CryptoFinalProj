@@ -1,0 +1,61 @@
+body {
+  padding: 50px;
+  width: 100%;
+  height: 100%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.navbar-dfs{
+	background-color:#FFA53D;
+	border-color:#FFA53D;
+}
+
+.navbar-brand b{
+	color: #ffffff;
+	font-size: 1.3em;
+}
+
+.nav > li> a{
+	padding-bottom: 17px;
+	color:white;
+}
+.nav > li> a:hover, .navbar-nav> .open > .dropdown-toggle:focus, .navbar-nav> .open > .dropdown-toggle{
+	background-color: #FFAE50;
+	color:white;
+}
+
+.btn-dfs{
+	color: #ffffff;
+	background-color: #FFA53D;
+	border-color: #FFA53D;
+}
+
+.btn-dfs:hover{
+	color: #DDDDDD;
+	background-color: #FFA53D;
+	border-color: #FFA53D;
+}
+
+.ddmenuContent{
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.ddmenuContent input{
+	width: 180px;
+}
+
+.btn-container{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.header{
+	text-align: center;
+}
+
+.setup-input{
+	margin-top: 30px;
+	margin-left: 25%;
+}
