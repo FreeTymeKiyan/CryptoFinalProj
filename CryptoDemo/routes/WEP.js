@@ -1,8 +1,10 @@
-function WEP(key,msg){
+function WEP(key,msg,cipher){
 	this.msg = msg;
 	this.key = key;
-	this.cipherTx = "";
+	this.cipherTx = cipher;
 }
+
+module.exports = WEP;
 
 WEP.prototype.generateIV = function(){
 	var ivStr = (Math.floor(Math.random()*16777215)+1).toString(2);
@@ -48,7 +50,8 @@ WEP.prototype.rc4 = function(seed){
 }
 
 WEP.prototype.crc32 = function(){
-	if (typeof(crc) == "undefined") { crc = 0; }
+	// console.log("msg:",this.msg);
+	var crc = 0;
     var x = 0;
     var y = 0;
  
@@ -86,7 +89,7 @@ WEP.prototype.constructCipherTx = function(str, s){
 	return result;
 }
 
-WEP.prototype.splitCipherText = function(cipher){
+WEP.prototype.splitCipherText = function(){
 	var iv = this.cipherTx.substring(0, 24);
 	var ivlist = [];
 	for (var i = 0; i < 3; i++) {
@@ -106,7 +109,6 @@ WEP.prototype.encryption = function(){
 	var iv = this.generateIV(); 			// Generate initialization vector
 	
 	var key = this.keyGenerate();			// Generate key with user input
-	console.log(key);
 	Array.prototype.push.apply(iv[0], key); // Combine key and iv
 	var keyStream = this.rc4(iv[0]);		// Generate key stream with rc4 
 	var checkSum = formatBinary(32,this.crc32().toString(2));	// Calculate check sum with the CRC32
@@ -116,8 +118,8 @@ WEP.prototype.encryption = function(){
 	return cipher;
 }
 
-
-WEP.prototype.decryption = function(){
+WEP.prototype.decryption = function(callback){
+	// console.log(this.cipherTx);
 	var ivCipher =this.splitCipherText();
 	var iv = ivCipher[0];
 	var encipherTx = ivCipher[1];
@@ -126,9 +128,14 @@ WEP.prototype.decryption = function(){
 	var keyStream = this.rc4(iv);
 	var decipher = this.constructCipherTx(encipherTx, keyStream);
 	var msgAndChecksum = this.splitChecksum(decipher);
-	var msg = msgAndChecksum[0];
+	this.msg = num2char(msgAndChecksum[0]);
 	var checksum = msgAndChecksum[1];
-	console.log(num2char(checksum));
+	var calculatedCS = formatBinary(32,this.crc32().toString(2));
+	if(checksum != calculatedCS){
+		return callback("error");
+	}
+	return callback(this.msg);
+
 }
 
 function num2char(str){
@@ -148,8 +155,3 @@ function formatBinary(len, str){
 	}
 	return str;
 }
-
-
-var a = new WEP("thisisnotkey","thisispassword");
-a.encryption();
-a.decryption();

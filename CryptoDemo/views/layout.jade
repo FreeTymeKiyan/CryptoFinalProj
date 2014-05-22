@@ -6,9 +6,7 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		block pageStyleSheet
 
-		script(src = '/javascripts/jquery.min.js')
-		script(src = '/javascripts/bootstrap.min.js')
-		block pageScript
+		
 	body
 		div.navbar.navbar-fixed-top.navbar-dfs(role = "banner")
 			div.container
@@ -22,4 +20,6 @@ html
 
 		div.container#container
 			block content
-
+		script(src = '/javascripts/jquery.min.js')
+		script(src = '/javascripts/bootstrap.min.js')
+		block pageScript

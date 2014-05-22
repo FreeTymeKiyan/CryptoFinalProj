@@ -1,3 +1,20 @@
 extend layout
 block content
-	
+	div.well.container(style = "margin-top: 30px").btn-container
+		div.input-group.col-md-6.setup-input(style = "visibility:hidden;")
+			span.input-group-addon Auth Key
+			input.form-control#key(name = "key", placeholder = "Auth Key", value = '#{key}')
+		div.input-group.col-md-6.setup-input
+			span.input-group-addon Password
+			input.form-control#password(name = "password", placeholder = "Password")
+		div.btn-container
+			p.btn.btn-primary.btn-dfs#encipher Encipher
+		div.input-group.col-md-6.setup-input
+			span.input-group-addon Encipher Msg
+			input.form-control#encipherMsg(name = "encrypted", placeholder = "Message")
+		div.btn-container
+			input(type = "submit")#submit.btn.btn-primary.btn-dfs
+
+block pageScript
+	script(src = '/javascripts/WEP.js')
+	script(src = '/javascripts/auth_handler.js')
